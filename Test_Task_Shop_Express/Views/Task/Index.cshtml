@@ -1,0 +1,74 @@
+﻿@model List<TaskModel>
+
+<div class="container">
+
+    <!--  HEADER  -->
+    <header class="text-center text-light my-4">
+        <h1 class="mb-4">Todo List</h1>
+        <form class="search">
+            <input type="text" class="form-control m-auto" name="search" placeholder="search todos">
+        </form>
+    </header>
+
+    <ul class="list-group todos mx-auto text-light">
+    @foreach (var task in Model)
+    {
+        
+
+    <!--  LIST  -->
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="w-100 text-break" style="@(task.IsDone ? "text-decoration: line-through;" : "")">@task.Title</span>
+                <span class="actions">
+                    <form method="post" asp-action="Delete" asp-route-id="@task.Id">
+                        <button type="submit" class="btn btn-link">
+                            <i class="far fa-trash-alt delete"></i>
+                        </button>
+                    </form>
+
+                    <!-- Edit Form -->
+                    <form method="get" asp-action="Edit" asp-route-id="@task.Id">
+                        <button type="submit" class="btn btn-link">
+                            <i class="far fa-edit edit"></i>
+                        </button>
+                    </form>
+                </span>
+        </li>
+
+
+    }
+    </ul>
+
+    <!--  FORM  -->
+    <form asp-controller="Task" asp-action="Create" class="add text-center my-4" method="post">
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+
+    <div class="text-center my-2">
+        <form method="get" asp-action="Index">
+            <button type="submit" name="sortOrder" value="Title_asc" class="btn btn-link">
+                Sort by Title (A-Z)
+            </button>
+            <button type="submit" name="sortOrder" value="Title_desc" class="btn btn-link">
+                Sort by Title (Z-A)
+            </button>
+            <button type="submit" name="filter" value="completed" class="btn btn-link">
+                Show Uncompleted Tasks
+            </button>
+        </form>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
